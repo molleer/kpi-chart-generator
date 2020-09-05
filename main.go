@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/go-echarts/go-echarts/charts"
@@ -15,4 +16,5 @@ func main() {
 		AddYAxis("Hello", []int{-6, -5, -4, -3, -2, -1}, charts.BarOpts{Stack: "stack"})
 	f, _ := os.Create("bar.kpi.html")
 	bar.Render(f)
+	log.Println("Charts created")
 }
