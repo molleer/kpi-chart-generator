@@ -1,7 +1,7 @@
-FROM golang:1.5 AS build
+FROM golang:latest
 WORKDIR /go/src/action
 COPY . .
 RUN go get -d -v
 RUN go install -v
-RUN go build .
-CMD ["./action"]
+RUN go build main.go
+CMD ["./main"]
