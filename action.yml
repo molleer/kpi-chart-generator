@@ -1,0 +1,9 @@
+name: KPI Chart Generator
+description: GitHub action which generates KPI charts
+author: David Möller
+branding:
+  icon: bar-chart
+  color: green
+runs:
+  using: docker
+  image: Dockerfile

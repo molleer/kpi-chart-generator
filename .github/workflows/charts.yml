@@ -1,0 +1,10 @@
+on:
+  pull_request:
+jobs:
+  kpi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: molleer/kpi-chart-generator@master
