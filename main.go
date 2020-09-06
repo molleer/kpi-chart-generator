@@ -3,18 +3,23 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
-	"github.com/go-echarts/go-echarts/charts"
+	"github.com/molleer/kpi-chart-generator/internal/utils"
+	//"github.com/go-echarts/go-echarts/charts"
 )
 
 func main() {
 	nameItems := []string{"One", "Two", "Three", "Four", "Five", "Six"}
-	bar := charts.NewBar()
-	bar.SetGlobalOptions(charts.TitleOpts{Title: "Title"})
-	bar.AddXAxis(nameItems).
-		AddYAxis("Hi", []int{1, 2, 3, 4, 5, 6}, charts.BarOpts{Stack: "stack"}).
-		AddYAxis("Hello", []int{-6, -5, -4, -3, -2, -1}, charts.BarOpts{Stack: "stack"})
+	setOne := utils.DataSet{"Hi", []int{1, 2, 3, 4, 5, 6}, "red"}
+	setTwo := utils.DataSet{"Hello", []int{-1, -2, -3, -4, -5, -6}, "green"}
+	bar := utils.CreateBarChart("Title", nameItems, []utils.DataSet{setOne, setTwo})
+
 	f, _ := os.Create("bar.kpi.html")
 	bar.Render(f)
 	log.Println("Charts created")
+
+	if os.Getenv("STAY_OPEN") == "True" {
+		time.Sleep(time.Hour)
+	}
 }
