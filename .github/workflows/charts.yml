@@ -11,4 +11,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: Bar-chart
-          path: /go/src/action/bar.kpi.html
+          path: ./**/*.kpi.html
