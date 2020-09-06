@@ -10,10 +10,28 @@ import (
 )
 
 func main() {
-	nameItems := []string{"One", "Two", "Three", "Four", "Five", "Six"}
-	setOne := utils.DataSet{"Hi", []int{1, 2, 3, 4, 5, 6}, "red"}
-	setTwo := utils.DataSet{"Hello", []int{-1, -2, -3, -4, -5, -6}, "green"}
-	bar := utils.CreateBarChart("Title", nameItems, []utils.DataSet{setOne, setTwo})
+	contribs, err := utils.GetLogs()
+	if err != nil {
+		log.Print("Command failed")
+		log.Println(err)
+		return
+	}
+
+	nameItems := []string{}
+
+	deletions := []int64{}
+	insertions := []int64{}
+
+	for _, contr := range contribs {
+		nameItems = append(nameItems, contr.Email)
+		deletions = append(deletions, -contr.Deletions)
+		insertions = append(insertions, contr.Insertions)
+	}
+
+	setOne := utils.DataSet{"Insertions", insertions, "red"}
+	setTwo := utils.DataSet{"Deletions", deletions, "green"}
+
+	bar := utils.CreateBarChart("Contributions", nameItems, []utils.DataSet{setOne, setTwo})
 
 	f, _ := os.Create("bar.kpi.html")
 	bar.Render(f)
